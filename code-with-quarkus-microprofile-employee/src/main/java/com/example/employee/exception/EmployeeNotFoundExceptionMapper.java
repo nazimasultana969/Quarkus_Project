@@ -1,0 +1,24 @@
+package com.example.employee.exception;
+
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
+
+@Provider
+public class EmployeeNotFoundExceptionMapper
+        implements ExceptionMapper<EmployeeNotFoundException> {
+
+    @Override
+    public Response toResponse(EmployeeNotFoundException exception) {
+
+        ErrorResponse response =
+                new ErrorResponse(
+                        exception.getMessage(),
+                        404);
+
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity(response)
+                .build();
+    }
+}
